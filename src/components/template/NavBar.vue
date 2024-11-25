@@ -1,37 +1,37 @@
 <template>
-  <header :class="{'dark': isDarkMode}" class="top-0 sticky z-30 flex h-16 items-center border-b border-b-gray-500/30 bg-white text-sm font-medium leading-6 dark:border-b-gray-500/70 dark:bg-gray-800">
-    <nav class="mx-10 flex w-full max-w-7xl gap-x-10 px-4 lg:px-0">
+
+  <header :class="{'dark': isDarkMode}" class="dark:bg-gray-800 bg-white border-b dark:border-b-gray-500/70 border-b-gray-500/30 sticky z-30 top-0 flex items-center leading-6 h-16 text-sm font-medium">
+    <nav class="mx-10 flex w-full w-full gap-x-10 px-4 lg:px-0">
 
       <!-- [1/3] 좌측(로고) 누르면 홈으로 이동 -->
       <div class="flex items-center lg:w-[180px]">
-        <a class="flex items-center" href="/"><span class="sr-only">HOME</span>
-
-          <!-- 로고 사진 -->
-          <div class="w-16">
-            <img class="w-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG2OGHS_6BkIigG6A9gj1M9OUfb7Lx9A4_rQ&s">
-          </div>
+        
+        <!-- 로고 사진 -->
+        <a class="flex items-center" href="/">
+          <div class="w-16"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG2OGHS_6BkIigG6A9gj1M9OUfb7Lx9A4_rQ&s"></div>
         </a>
+
       </div>
 
       <!-- [2/3] 중앙(링크) 누르면 사이트로 이동 -->
       <div class="flex-1 justify-between sm:flex ">
 
         <!-- 링크 버튼 -->
-        <div class="hidden py-3 sm:flex sm:items-center sm:gap-x-4 xl:gap-x-6">
-          <!-- 메뉴 1-4 -->
-          <a class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium" href="/menu1"> <span class="hover:no-underline">한식</span> </a>
-          <a class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium" href="/menu1"> <span class="hover:no-underline">양식</span> </a>
-          <a class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium" href="/menu1"> <span class="hover:no-underline">일식</span> </a>
-          <a class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium" href="/menu1"> <span class="hover:no-underline">중식</span> </a>
-          <a class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium" href="/menu1"> <span class="hover:no-underline">동남아</span> </a>
-          <a class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium" href="/menu1"> <span class="hover:no-underline">cafe</span> </a>
-          
+        <div class="hidden py-3 sm:flex sm:items-center sm:gap-x-3 xl:gap-x-6">
+          <!-- 메뉴 1-6 -->
+          <div>
+            <a v-for="item in menuItems" :key="item.name" :href="item.link" class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium sm:mr-2 md:mr-4 xl:mr-5">
+              <span class="hover:no-underline">{{ item.name }}</span>
+            </a>
+          </div>
+
           <!-- 메뉴와 컨택트 구분칸 (|) -->
           <div class="h-3 w-px shrink-0 bg-gray-400 dark:bg-gray-400/70"></div>
 
           <!-- Contact 버튼 -->
-          <a class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium" href="/menu1"> <span class="hover:no-underline">Contact</span> </a>
+          <a class="text-gray-900 hover:text-blue-500 dark:text-gray-100 dark:hover:text-blue-200 relative inline-block shrink-0 font-medium" href="/contact"> <span class="hover:no-underline">Contact</span> </a>
         </div>
+
       </div>
 
       <!-- [3/3] 우측(버튼) 다크모드/로그인/회원가입 -->
@@ -79,13 +79,14 @@
 
     </nav>
   </header>
+
 </template>
 
 <script>
   import { ref, onMounted, watch } from 'vue';
 
   export default {
-    name: 'MainMenu',
+    name: 'NavBar',
     setup() {
       const isDarkMode = ref(false);
 
@@ -115,6 +116,19 @@
         isDarkMode,
         toggleDarkMode
       };
+    },
+    
+    data() {
+      return {
+        menuItems: [
+          { name: '한식', link: '/kr' },
+          { name: '양식', link: '/wf' },
+          { name: '일식', link: '/jp' },
+          { name: '중식', link: '/cn' },
+          { name: '동남아', link: '/saf' },
+          { name: 'cafe', link: '/cafe' },
+          ]
+        }
     }
   };
 </script>
